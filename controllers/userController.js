@@ -1,7 +1,7 @@
 const { User } = require('../models');
 const tokenSetup = require('../utils/tokenCreation');
 
-const login = async (req, res) => {
+const signUp = async (req, res) => {
     try {
         const { displayName, email, password, image } = req.body;
         const findUser = await User.findOne({ where: { email } });
@@ -21,6 +21,21 @@ const login = async (req, res) => {
     }
 };
 
+const login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const findUser = await User.findOne({ where: { email } });
+        if (!findUser) { return res.status(400).json({ message: 'Invalid fields' }); }
+        const userToken = tokenSetup({ email, password });
+        return res.status(200).json({ userToken });
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Internal server error',
+        });
+    }
+};
+
 module.exports = {
+    signUp,
     login,
 };

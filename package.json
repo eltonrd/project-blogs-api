@@ -10,7 +10,8 @@
     "mysql2": "2.1.0",
     "nodemon": "^2.0.15",
     "sequelize": "6.3.4",
-    "shelljs": "0.8.4"
+    "shelljs": "0.8.4",
+    "validator": "^13.7.0"
   },
   "scripts": {
     "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate $",
