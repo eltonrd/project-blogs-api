@@ -1,5 +1,6 @@
 const express = require('express');
 const userController = require('./controllers/userController');
+const categoryController = require('./controllers/categoryController');
 const {     
   displayNameValidation,
   emailValidation,
@@ -28,6 +29,9 @@ userController.getAllUsers);
 app.get('/user/:id',
 tokenVerification,
 userController.getUserById);
+app.post('/categories',
+tokenVerification,
+categoryController.createCategory);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
