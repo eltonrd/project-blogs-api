@@ -32,6 +32,9 @@ userController.getUserById);
 app.post('/categories',
 tokenVerification,
 categoryController.createCategory);
+app.get('/categories',
+tokenVerification,
+categoryController.getAllCategories);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
