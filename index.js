@@ -1,6 +1,18 @@
 const express = require('express');
+const userController = require('./controllers/userController');
+const {     
+  displayNameValidation,
+  emailValidation,
+  passwordValidation,
+} = require('./middlewares/validations');
 
 const app = express();
+app.use(express.json());
+app.post('/user',
+displayNameValidation,
+passwordValidation,
+emailValidation,
+userController.login);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
