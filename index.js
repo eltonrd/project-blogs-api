@@ -25,6 +25,9 @@ userController.login);
 app.get('/user',
 tokenVerification,
 userController.getAllUsers);
+app.get('/user/:id',
+tokenVerification,
+userController.getUserById);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
