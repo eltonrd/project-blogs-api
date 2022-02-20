@@ -9,6 +9,7 @@ const {
   loginEmailValidation,
   loginPasswordValidation,
 } = require('./middlewares/loginValidations');
+const tokenVerification = require('./utils/tokenVerification');
 
 const app = express();
 app.use(express.json());
@@ -21,6 +22,9 @@ app.post('/login',
 loginEmailValidation,
 loginPasswordValidation,
 userController.login);
+app.get('/user',
+tokenVerification,
+userController.getAllUsers);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 

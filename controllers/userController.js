@@ -26,8 +26,19 @@ const login = async (req, res) => {
         const { email, password } = req.body;
         const findUser = await User.findOne({ where: { email } });
         if (!findUser) { return res.status(400).json({ message: 'Invalid fields' }); }
-        const userToken = tokenSetup({ email, password });
-        return res.status(200).json({ userToken });
+        const token = tokenSetup({ email, password });
+        return res.status(200).json({ token });
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Internal server error',
+        });
+    }
+};
+
+const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.findAll();
+        return res.status(200).json(users);
     } catch (error) {
         return res.status(500).json({
             message: 'Internal server error',
@@ -38,4 +49,5 @@ const login = async (req, res) => {
 module.exports = {
     signUp,
     login,
+    getAllUsers,
 };
