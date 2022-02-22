@@ -11,6 +11,7 @@ module.exports = {
       categoryId: {
         allowNull: false,
         type: Sequelize.INTEGER,
+        unique: true,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         references: {
@@ -21,6 +22,7 @@ module.exports = {
       postId: {
         allowNull: false,
         type: Sequelize.INTEGER,
+        unique: true,
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         references: {
