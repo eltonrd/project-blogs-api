@@ -20,6 +20,4 @@ const blogPostValidation = async (req, res, next) => {
     next();
 };
 
-module.exports = {
-    blogPostValidation,
-};
+module.exports = { blogPostValidation };

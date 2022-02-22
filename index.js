@@ -42,7 +42,7 @@ categoryController.getAllCategories);
 app.post('/post',
 tokenVerification,
 blogPostValidation,
-blogPostController.createPost);
+blogPostController.createBlogPost);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
