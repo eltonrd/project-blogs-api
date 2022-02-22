@@ -3,24 +3,23 @@ const { BlogPosts, PostCategories } = require('../models');
 const createBlogPost = async (req, res) => {
     try {
         const { title, content, categoryIds } = req.body;
-        const userId = req.user.id;
-        const blogPost = await BlogPosts.create({ 
-            title, content, userId, published: new Date(), updated: new Date(), 
+        const { user } = req;
+        const blogPost = await BlogPosts.create({
+            title,
+            content,
+            userId: user.id,
         });
-
-        const createCategory = PostCategories.create(
-            categoryIds.map((categoryId) => ({
-                postId: blogPost.id,
-                categoryId,
-            })),
-        );
-        await Promise.all(createCategory);
-        return res.status(201).json({ ...blogPost.dataValues });
+        const createCategoryMap = categoryIds.map(async (categoryId) => {
+            await PostCategories.create({
+                blogPostId: blogPost.id,
+                categoryId });
+        });
+        await Promise.all(createCategoryMap);
+        return res.status(201).json(blogPost);
     } catch (error) {
         return res.status(500).json({ message: 'Internal server error' });
     }
 };
-
 module.exports = {
     createBlogPost,
 };
