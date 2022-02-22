@@ -7,7 +7,6 @@ const blogPostValidation = async (req, res, next) => {
     if (!content) { return res.status(400).json({ message: '"content" is required' }); }
     if (!categoryIds) { return res.status(400).json({ message: '"categoryIds" is required' }); }
     const findAllCategories = await Category.findAll();
-    console.log(findAllCategories);
     const categories = findAllCategories.map((category) => category.id);
     const categoryIdsIsValid = categoryIds.every((id) => categories.includes(id));
     if (!categoryIdsIsValid) {

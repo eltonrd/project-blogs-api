@@ -36,7 +36,24 @@ const getAllBlogPosts = async (req, res) => {
     }
 };
 
+const getBlogPostById = async (req, res) => {
+    try { 
+        const { id } = req.params;
+        const post = await BlogPosts.findOne({ 
+            include: [
+                { model: User, as: 'user', attributes: { exclude: ['password'] } },
+                { model: Category, as: 'categories', through: { attributes: [] } },
+            ],
+            where: { id },
+        });
+        return res.status(200).json(post);
+    } catch (error) {
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
 module.exports = {
     createBlogPost,
     getAllBlogPosts,
+    getBlogPostById,
 };
