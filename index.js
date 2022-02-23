@@ -46,8 +46,8 @@ app.get('/categories',
 tokenVerification,
 categoryController.getAllCategories);
 app.post('/post',
-blogPostValidation,
 tokenVerification,
+blogPostValidation,
 blogPostController.createBlogPost);
 app.get('/post',
 tokenVerification,
