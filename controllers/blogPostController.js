@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPosts, PostCategories, User, Category } = require('../models');
 
 const errorMessage = 'Internal server error';
@@ -98,6 +99,41 @@ const deleteUser = async (req, res) => {
     }
 };
 
+// Referência para o uso do operador Op: https://pt.stackoverflow.com/questions/355872/como-utilizar-o-like-do-sql-no-sequelize
+const searchByQuery = async (query) => {
+    const search = query.toLowerCase();
+    const posts = await BlogPosts.findAll({
+        where: {
+            [Op.or]: [
+                { title: { [Op.like]: `%${search}%` } },
+                { content: { [Op.like]: `%${search}%` } },
+            ],
+        },
+        include: [
+            { model: User, as: 'user', attributes: { exclude: ['password'] } },
+            { model: Category, as: 'categories', through: { attributes: [] } },
+        ],
+    });
+    return posts;
+};
+const searchBlogPosts = async (req, res) => {
+    const { q } = req.query;
+    if (!q) {
+        const queryPosts = await BlogPosts.findAll({
+            include: [
+                { model: User, as: 'user', attributes: { exclude: ['password'] } },
+                { model: Category, as: 'categories', through: { attributes: [] } },
+            ],
+            });
+        return res.status(200).json(queryPosts);
+    }
+    const posts = await searchByQuery(q);
+    if (!posts) {
+        return res.status(200).json([]);
+    }
+    return res.status(200).json(posts);
+};
+
 module.exports = {
     createBlogPost,
     getAllBlogPosts,
@@ -105,4 +141,5 @@ module.exports = {
     updateBlogPost,
     deleteBlogPost,
     deleteUser,
+    searchBlogPosts,
 };

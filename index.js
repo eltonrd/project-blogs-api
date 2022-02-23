@@ -52,6 +52,9 @@ blogPostController.createBlogPost);
 app.get('/post',
 tokenVerification,
 blogPostController.getAllBlogPosts);
+app.get('/post/search',
+tokenVerification,
+blogPostController.searchBlogPosts);
 app.get('/post/:id',
 tokenVerification,
 getPostByIdValidation,
