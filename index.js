@@ -60,6 +60,10 @@ app.put('/post/:id',
 tokenVerification,
 updateBlogPostValidation,
 blogPostController.updateBlogPost);
+app.delete('/post/:id',
+tokenVerification,
+getPostByIdValidation,
+blogPostController.deleteBlogPost);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 

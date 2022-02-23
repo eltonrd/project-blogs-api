@@ -1,5 +1,7 @@
 const { BlogPosts, PostCategories, User, Category } = require('../models');
 
+const errorMessage = 'Internal server error';
+
 const createBlogPost = async (req, res) => {
     try {
         const { title, content, categoryIds } = req.body;
@@ -17,7 +19,7 @@ const createBlogPost = async (req, res) => {
         await Promise.all(createCategoryMap);
         return res.status(201).json(blogPost);
     } catch (error) {
-        return res.status(500).json({ message: 'Internal server error' });
+        return res.status(500).json({ message: errorMessage });
     }
 };
 
@@ -32,7 +34,7 @@ const getAllBlogPosts = async (req, res) => {
         });
         return res.status(200).json(allPosts);
     } catch (error) {
-        return res.status(500).json({ message: 'Internal server error' });
+        return res.status(500).json({ message: errorMessage });
     }
 };
 
@@ -48,7 +50,7 @@ const getBlogPostById = async (req, res) => {
         });
         return res.status(200).json(post);
     } catch (error) {
-        return res.status(500).json({ message: 'Internal server error' });
+        return res.status(500).json({ message: errorMessage });
     }
 };
 
@@ -65,7 +67,17 @@ const updateBlogPost = async (req, res) => {
         });
         return res.status(200).json(post);
     } catch (error) {
-        return res.status(500).json({ message: 'Internal server error' });
+        return res.status(500).json({ message: errorMessage });
+    }
+};
+
+const deleteBlogPost = async (req, res) => {
+    try {
+        const { id } = req.params;
+        await BlogPosts.destroy({ where: { id } });
+        return res.status(204).json();
+    } catch (error) {
+        return res.status(500).json({ message: errorMessage });
     }
 };
 
@@ -74,4 +86,5 @@ module.exports = {
     getAllBlogPosts,
     getBlogPostById,
     updateBlogPost,
+    deleteBlogPost,
 };
