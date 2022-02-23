@@ -64,6 +64,8 @@ app.delete('/post/:id',
 tokenVerification,
 getPostByIdValidation,
 blogPostController.deleteBlogPost);
+app.delete('/user/me',
+blogPostController.deleteUser);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
