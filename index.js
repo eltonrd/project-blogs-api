@@ -17,6 +17,9 @@ const {
 const {
   getPostByIdValidation,
 } = require('./middlewares/getPostByIdValidation');
+const {
+  updateBlogPostValidation,
+} = require('./middlewares/updateBlogPostValidation');
 const tokenVerification = require('./utils/tokenVerification');
 
 const app = express();
@@ -53,6 +56,10 @@ app.get('/post/:id',
 tokenVerification,
 getPostByIdValidation,
 blogPostController.getBlogPostById);
+app.put('/post/:id',
+tokenVerification,
+updateBlogPostValidation,
+blogPostController.updateBlogPost);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 

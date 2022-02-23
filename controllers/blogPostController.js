@@ -52,8 +52,26 @@ const getBlogPostById = async (req, res) => {
     }
 };
 
+const updateBlogPost = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { title, content } = req.body;
+        await BlogPosts.update({ title, content }, { where: { id } });
+        const post = await BlogPosts.findOne({ 
+            include: [
+                { model: Category, as: 'categories', through: { attributes: [] } },
+            ],
+            where: { id },
+        });
+        return res.status(200).json(post);
+    } catch (error) {
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
 module.exports = {
     createBlogPost,
     getAllBlogPosts,
     getBlogPostById,
+    updateBlogPost,
 };
