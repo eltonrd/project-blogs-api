@@ -91,10 +91,7 @@ const deleteBlogPost = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     try {
-        const { user } = req;
-        console.log(user);
-        await User.destroy({ where: { id: user.id } });
-        console.log('Usuário deletado com sucesso!');
+        await User.destroy({ where: { id: req.user.id } });
         return res.status(204).json();
     } catch (error) {
         return res.status(500).json({ message: errorMessage });
