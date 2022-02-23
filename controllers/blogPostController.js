@@ -74,6 +74,14 @@ const updateBlogPost = async (req, res) => {
 const deleteBlogPost = async (req, res) => {
     try {
         const { id } = req.params;
+        const findPost = await BlogPosts.findOne({ where: { id } });
+        // Necessário realizar a verificação para evitar que o usuário exclua um post que não é dele no controller.
+        if (!findPost) {
+            return res.status(404).json({ message: 'Post does not exist' });
+        }
+        if (findPost.userId !== req.user.id) {
+            return res.status(401).json({ message: 'Unauthorized user' });
+        }
         await BlogPosts.destroy({ where: { id } });
         return res.status(204).json();
     } catch (error) {
