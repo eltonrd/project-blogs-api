@@ -20,11 +20,23 @@ Foi arquitetado e desenvolvido uma API de um CRUD posts de blog (com o Sequelize
 
 ---
 
-## Desenvolvimento
+## Funcionamento da aplicação
 
-Você deve desenvolver uma aplicação em `Node.js` usando o pacote `sequelize` para fazer um `CRUD` de posts.
+⚠ **Atenção:** ⚠
+Para rodar a aplicação é necessário realizar a configuração do `MYSQL` e definir as variáveis de ambiente no arquivo `.env`, na raiz do projeto.
+Logo em seguida executar um dos comandos abaixo.
 
-Para fazer um post é necessário usuário e login, portanto será trabalhada a **relação entre** `user` e `post`. Também será necessário a utilização de categorias para seus posts, assim trabalhando a relação de `posts` para `categorias` e de `categorias` para `posts`.
+Modo de produção:
+```sh
+npm start
+```
+Modo de desenvolvimento:
+```sh
+npm run debug
+```
+
+Para fazer um post é necessário usuário e login, portanto será trabalhada a **relação entre** `user` e `post`. Também é necessário a utilização de categorias para os posts, assim trabalhando a relação de `posts` para `categorias` e de `categorias` para `posts`.
+
  
 ### Execução de testes unitários
 
