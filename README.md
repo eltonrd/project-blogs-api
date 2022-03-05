@@ -40,7 +40,7 @@ Para fazer um post é necessário usuário e login, portanto será trabalhada a 
  
 ### Execução de testes unitários
 
-Vamos usar o Jest para executar os testes, use o comando a seguir para executar todos os testes: 
+É utilizado o Jest para executar os testes, use o comando a seguir para executar todos os testes: 
 
 ```sh
 npm test
